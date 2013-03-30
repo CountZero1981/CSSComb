@@ -1,11 +1,10 @@
 package com.rudeshko.csscomb;
 
+import com.intellij.ide.util.PropertiesComponent;
+import com.intellij.openapi.project.Project;
 import com.intellij.psi.css.CssDeclaration;
 
 import java.util.Comparator;
-import java.util.List;
-
-import static java.util.Arrays.asList;
 
 /**
  * Created by: Tesla
@@ -13,384 +12,400 @@ import static java.util.Arrays.asList;
  */
 public class CssOrder {
 
-    public static final List<String> DEFAULT_ORDER = asList(
-            "position",
-            "top",
-            "right",
-            "bottom",
-            "left",
-            "z-index",
-            "display",
-            "visibility",
-            "-webkit-flex-direction",
-            "-moz-flex-direction",
-            "-ms-flex-direction",
-            "-o-flex-direction",
-            "flex-direction",
-            "-webkit-flex-order",
-            "-moz-flex-order",
-            "-ms-flex-order",
-            "-o-flex-order",
-            "flex-order",
-            "-webkit-flex-pack",
-            "-moz-flex-pack",
-            "-ms-flex-pack",
-            "-o-flex-pack",
-            "flex-pack",
-            "float",
-            "clear",
-            "-webkit-flex-align",
-            "-moz-flex-align",
-            "-ms-flex-align",
-            "-o-flex-align",
-            "flex-align",
-            "overflow",
-            "-ms-overflow-x",
-            "-ms-overflow-y",
-            "overflow-x",
-            "overflow-y",
-            "clip",
-            "-webkit-box-sizing",
-            "-moz-box-sizing",
-            "box-sizing",
-            "margin",
-            "margin-top",
-            "margin-right",
-            "margin-bottom",
-            "margin-left",
-            "padding",
-            "padding-top",
-            "padding-right",
-            "padding-bottom",
-            "padding-left",
-            "min-width",
-            "min-height",
-            "max-width",
-            "max-height",
-            "width",
-            "height",
-            "outline",
-            "outline-width",
-            "outline-style",
-            "outline-color",
-            "outline-offset",
-            "border",
-            "border-spacing",
-            "border-collapse",
-            "border-width",
-            "border-style",
-            "border-color",
-            "border-top",
-            "border-top-width",
-            "border-top-style",
-            "border-top-color",
-            "border-right",
-            "border-right-width",
-            "border-right-style",
-            "border-right-color",
-            "border-bottom",
-            "border-bottom-width",
-            "border-bottom-style",
-            "border-bottom-color",
-            "border-left",
-            "border-left-width",
-            "border-left-style",
-            "border-left-color",
-            "-webkit-border-radius",
-            "-moz-border-radius",
-            "border-radius",
-            "-webkit-border-top-left-radius",
-            "-moz-border-radius-topleft",
-            "border-top-left-radius",
-            "-webkit-border-top-right-radius",
-            "-moz-border-radius-topright",
-            "border-top-right-radius",
-            "-webkit-border-bottom-right-radius",
-            "-moz-border-radius-bottomright",
-            "border-bottom-right-radius",
-            "-webkit-border-bottom-left-radius",
-            "-moz-border-radius-bottomleft",
-            "border-bottom-left-radius",
-            "-webkit-border-image",
-            "-moz-border-image",
-            "-o-border-image",
-            "border-image",
-            "-webkit-border-image-source",
-            "-moz-border-image-source",
-            "-o-border-image-source",
-            "border-image-source",
-            "-webkit-border-image-slice",
-            "-moz-border-image-slice",
-            "-o-border-image-slice",
-            "border-image-slice",
-            "-webkit-border-image-width",
-            "-moz-border-image-width",
-            "-o-border-image-width",
-            "border-image-width",
-            "-webkit-border-image-outset",
-            "-moz-border-image-outset",
-            "-o-border-image-outset",
-            "border-image-outset",
-            "-webkit-border-image-repeat",
-            "-moz-border-image-repeat",
-            "-o-border-image-repeat",
-            "border-image-repeat",
-            "-webkit-border-top-image",
-            "-moz-border-top-image",
-            "-o-border-top-image",
-            "border-top-image",
-            "-webkit-border-right-image",
-            "-moz-border-right-image",
-            "-o-border-right-image",
-            "border-right-image",
-            "-webkit-border-bottom-image",
-            "-moz-border-bottom-image",
-            "-o-border-bottom-image",
-            "border-bottom-image",
-            "-webkit-border-left-image",
-            "-moz-border-left-image",
-            "-o-border-left-image",
-            "border-left-image",
-            "-webkit-border-corner-image",
-            "-moz-border-corner-image",
-            "-o-border-corner-image",
-            "border-corner-image",
-            "-webkit-border-top-left-image",
-            "-moz-border-top-left-image",
-            "-o-border-top-left-image",
-            "border-top-left-image",
-            "-webkit-border-top-right-image",
-            "-moz-border-top-right-image",
-            "-o-border-top-right-image",
-            "border-top-right-image",
-            "-webkit-border-bottom-right-image",
-            "-moz-border-bottom-right-image",
-            "-o-border-bottom-right-image",
-            "border-bottom-right-image",
-            "-webkit-border-bottom-left-image",
-            "-moz-border-bottom-left-image",
-            "-o-border-bottom-left-image",
-            "border-bottom-left-image",
-            "background",
-            "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader",
-            "background-color",
-            "background-image",
-            "background-attachment",
-            "background-position",
-            "-ms-background-position-x",
-            "-ms-background-position-y",
-            "background-position-x",
-            "background-position-y",
-            "background-clip",
-            "background-origin",
-            "background-size",
-            "background-repeat",
-            "box-decoration-break",
-            "-webkit-box-shadow",
-            "-moz-box-shadow",
-            "box-shadow",
-            "color",
-            "table-layout",
-            "caption-side",
-            "empty-cells",
-            "list-style",
-            "list-style-position",
-            "list-style-type",
-            "list-style-image",
-            "quotes",
-            "content",
-            "counter-increment",
-            "counter-reset",
-            "-ms-writing-mode",
-            "vertical-align",
-            "text-align",
-            "-webkit-text-align-last",
-            "-moz-text-align-last",
-            "-ms-text-align-last",
-            "text-align-last",
-            "text-decoration",
-            "text-emphasis",
-            "text-emphasis-position",
-            "text-emphasis-style",
-            "text-emphasis-color",
-            "text-indent",
-            "-ms-text-justify",
-            "text-justify",
-            "text-outline",
-            "text-transform",
-            "text-wrap",
-            "-ms-text-overflow",
-            "text-overflow",
-            "text-overflow-ellipsis",
-            "text-overflow-mode",
-            "text-shadow",
-            "white-space",
-            "word-spacing",
-            "-ms-word-wrap",
-            "word-wrap",
-            "-ms-word-break",
-            "word-break",
-            "-moz-tab-size",
-            "-o-tab-size",
-            "tab-size",
-            "-webkit-hyphens",
-            "-moz-hyphens",
-            "hyphens",
-            "letter-spacing",
-            "font",
-            "font-weight",
-            "font-style",
-            "font-variant",
-            "font-size-adjust",
-            "font-stretch",
-            "font-size",
-            "font-family",
-            "src",
-            "line-height",
-            "opacity",
-            "-ms-filter:'progid:DXImageTransform.Microsoft.Alpha",
-            "filter:progid:DXImageTransform.Microsoft.Alpha(Opacity",
-            "-ms-interpolation-mode",
-            "-webkit-filter",
-            "-ms-filter",
-            "filter",
-            "resize",
-            "cursor",
-            "nav-index",
-            "nav-up",
-            "nav-right",
-            "nav-down",
-            "nav-left",
-            "-webkit-transition",
-            "-moz-transition",
-            "-ms-transition",
-            "-o-transition",
-            "transition",
-            "-webkit-transition-delay",
-            "-moz-transition-delay",
-            "-ms-transition-delay",
-            "-o-transition-delay",
-            "transition-delay",
-            "-webkit-transition-timing-function",
-            "-moz-transition-timing-function",
-            "-ms-transition-timing-function",
-            "-o-transition-timing-function",
-            "transition-timing-function",
-            "-webkit-transition-duration",
-            "-moz-transition-duration",
-            "-ms-transition-duration",
-            "-o-transition-duration",
-            "transition-duration",
-            "-webkit-transition-property",
-            "-moz-transition-property",
-            "-ms-transition-property",
-            "-o-transition-property",
-            "transition-property",
-            "-webkit-transform",
-            "-moz-transform",
-            "-ms-transform",
-            "-o-transform",
-            "transform",
-            "-webkit-transform-origin",
-            "-moz-transform-origin",
-            "-ms-transform-origin",
-            "-o-transform-origin",
-            "transform-origin",
-            "-webkit-animation",
-            "-moz-animation",
-            "-ms-animation",
-            "-o-animation",
-            "animation",
-            "-webkit-animation-name",
-            "-moz-animation-name",
-            "-ms-animation-name",
-            "-o-animation-name",
-            "animation-name",
-            "-webkit-animation-duration",
-            "-moz-animation-duration",
-            "-ms-animation-duration",
-            "-o-animation-duration",
-            "animation-duration",
-            "-webkit-animation-play-state",
-            "-moz-animation-play-state",
-            "-ms-animation-play-state",
-            "-o-animation-play-state",
-            "animation-play-state",
-            "-webkit-animation-timing-function",
-            "-moz-animation-timing-function",
-            "-ms-animation-timing-function",
-            "-o-animation-timing-function",
-            "animation-timing-function",
-            "-webkit-animation-delay",
-            "-moz-animation-delay",
-            "-ms-animation-delay",
-            "-o-animation-delay",
-            "animation-delay",
-            "-webkit-animation-iteration-count",
-            "-moz-animation-iteration-count",
-            "-ms-animation-iteration-count",
-            "-o-animation-iteration-count",
-            "animation-iteration-count",
-            "-webkit-animation-direction",
-            "-moz-animation-direction",
-            "-ms-animation-direction",
-            "-o-animation-direction",
-            "animation-direction",
-            "pointer-events",
-            "unicode-bidi",
-            "direction",
-            "-webkit-columns",
-            "-moz-columns",
-            "columns",
-            "-webkit-column-span",
-            "-moz-column-span",
-            "column-span",
-            "-webkit-column-width",
-            "-moz-column-width",
-            "column-width",
-            "-webkit-column-count",
-            "-moz-column-count",
-            "column-count",
-            "-webkit-column-fill",
-            "-moz-column-fill",
-            "column-fill",
-            "-webkit-column-gap",
-            "-moz-column-gap",
-            "column-gap",
-            "-webkit-column-rule",
-            "-moz-column-rule",
-            "column-rule",
-            "-webkit-column-rule-width",
-            "-moz-column-rule-width",
-            "column-rule-width",
-            "-webkit-column-rule-style",
-            "-moz-column-rule-style",
-            "column-rule-style",
-            "-webkit-column-rule-color",
-            "-moz-column-rule-color",
-            "column-rule-color",
-            "break-before",
-            "break-inside",
-            "break-after",
-            "page-break-before",
-            "page-break-inside",
-            "page-break-after",
-            "orphans",
-            "widows",
-            "-ms-zoom",
-            "zoom",
-            "max-zoom",
-            "min-zoom",
-            "user-zoom",
-            "orientation"
-    );
+    public static final String DEFAULT_ORDER =
+            "position\n" +
+            "top\n" +
+            "right\n" +
+            "bottom\n" +
+            "left\n" +
+            "z-index\n" +
+            "display\n" +
+            "visibility\n" +
+            "-webkit-flex-direction\n" +
+            "-moz-flex-direction\n" +
+            "-ms-flex-direction\n" +
+            "-o-flex-direction\n" +
+            "flex-direction\n" +
+            "-webkit-flex-order\n" +
+            "-moz-flex-order\n" +
+            "-ms-flex-order\n" +
+            "-o-flex-order\n" +
+            "flex-order\n" +
+            "-webkit-flex-pack\n" +
+            "-moz-flex-pack\n" +
+            "-ms-flex-pack\n" +
+            "-o-flex-pack\n" +
+            "flex-pack\n" +
+            "float\n" +
+            "clear\n" +
+            "-webkit-flex-align\n" +
+            "-moz-flex-align\n" +
+            "-ms-flex-align\n" +
+            "-o-flex-align\n" +
+            "flex-align\n" +
+            "overflow\n" +
+            "-ms-overflow-x\n" +
+            "-ms-overflow-y\n" +
+            "overflow-x\n" +
+            "overflow-y\n" +
+            "clip\n" +
+            "-webkit-box-sizing\n" +
+            "-moz-box-sizing\n" +
+            "box-sizing\n" +
+            "margin\n" +
+            "margin-top\n" +
+            "margin-right\n" +
+            "margin-bottom\n" +
+            "margin-left\n" +
+            "padding\n" +
+            "padding-top\n" +
+            "padding-right\n" +
+            "padding-bottom\n" +
+            "padding-left\n" +
+            "min-width\n" +
+            "min-height\n" +
+            "max-width\n" +
+            "max-height\n" +
+            "width\n" +
+            "height\n" +
+            "outline\n" +
+            "outline-width\n" +
+            "outline-style\n" +
+            "outline-color\n" +
+            "outline-offset\n" +
+            "border\n" +
+            "border-spacing\n" +
+            "border-collapse\n" +
+            "border-width\n" +
+            "border-style\n" +
+            "border-color\n" +
+            "border-top\n" +
+            "border-top-width\n" +
+            "border-top-style\n" +
+            "border-top-color\n" +
+            "border-right\n" +
+            "border-right-width\n" +
+            "border-right-style\n" +
+            "border-right-color\n" +
+            "border-bottom\n" +
+            "border-bottom-width\n" +
+            "border-bottom-style\n" +
+            "border-bottom-color\n" +
+            "border-left\n" +
+            "border-left-width\n" +
+            "border-left-style\n" +
+            "border-left-color\n" +
+            "-webkit-border-radius\n" +
+            "-moz-border-radius\n" +
+            "border-radius\n" +
+            "-webkit-border-top-left-radius\n" +
+            "-moz-border-radius-topleft\n" +
+            "border-top-left-radius\n" +
+            "-webkit-border-top-right-radius\n" +
+            "-moz-border-radius-topright\n" +
+            "border-top-right-radius\n" +
+            "-webkit-border-bottom-right-radius\n" +
+            "-moz-border-radius-bottomright\n" +
+            "border-bottom-right-radius\n" +
+            "-webkit-border-bottom-left-radius\n" +
+            "-moz-border-radius-bottomleft\n" +
+            "border-bottom-left-radius\n" +
+            "-webkit-border-image\n" +
+            "-moz-border-image\n" +
+            "-o-border-image\n" +
+            "border-image\n" +
+            "-webkit-border-image-source\n" +
+            "-moz-border-image-source\n" +
+            "-o-border-image-source\n" +
+            "border-image-source\n" +
+            "-webkit-border-image-slice\n" +
+            "-moz-border-image-slice\n" +
+            "-o-border-image-slice\n" +
+            "border-image-slice\n" +
+            "-webkit-border-image-width\n" +
+            "-moz-border-image-width\n" +
+            "-o-border-image-width\n" +
+            "border-image-width\n" +
+            "-webkit-border-image-outset\n" +
+            "-moz-border-image-outset\n" +
+            "-o-border-image-outset\n" +
+            "border-image-outset\n" +
+            "-webkit-border-image-repeat\n" +
+            "-moz-border-image-repeat\n" +
+            "-o-border-image-repeat\n" +
+            "border-image-repeat\n" +
+            "-webkit-border-top-image\n" +
+            "-moz-border-top-image\n" +
+            "-o-border-top-image\n" +
+            "border-top-image\n" +
+            "-webkit-border-right-image\n" +
+            "-moz-border-right-image\n" +
+            "-o-border-right-image\n" +
+            "border-right-image\n" +
+            "-webkit-border-bottom-image\n" +
+            "-moz-border-bottom-image\n" +
+            "-o-border-bottom-image\n" +
+            "border-bottom-image\n" +
+            "-webkit-border-left-image\n" +
+            "-moz-border-left-image\n" +
+            "-o-border-left-image\n" +
+            "border-left-image\n" +
+            "-webkit-border-corner-image\n" +
+            "-moz-border-corner-image\n" +
+            "-o-border-corner-image\n" +
+            "border-corner-image\n" +
+            "-webkit-border-top-left-image\n" +
+            "-moz-border-top-left-image\n" +
+            "-o-border-top-left-image\n" +
+            "border-top-left-image\n" +
+            "-webkit-border-top-right-image\n" +
+            "-moz-border-top-right-image\n" +
+            "-o-border-top-right-image\n" +
+            "border-top-right-image\n" +
+            "-webkit-border-bottom-right-image\n" +
+            "-moz-border-bottom-right-image\n" +
+            "-o-border-bottom-right-image\n" +
+            "border-bottom-right-image\n" +
+            "-webkit-border-bottom-left-image\n" +
+            "-moz-border-bottom-left-image\n" +
+            "-o-border-bottom-left-image\n" +
+            "border-bottom-left-image\n" +
+            "background\n" +
+            "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader\n" +
+            "background-color\n" +
+            "background-image\n" +
+            "background-attachment\n" +
+            "background-position\n" +
+            "-ms-background-position-x\n" +
+            "-ms-background-position-y\n" +
+            "background-position-x\n" +
+            "background-position-y\n" +
+            "background-clip\n" +
+            "background-origin\n" +
+            "background-size\n" +
+            "background-repeat\n" +
+            "box-decoration-break\n" +
+            "-webkit-box-shadow\n" +
+            "-moz-box-shadow\n" +
+            "box-shadow\n" +
+            "color\n" +
+            "table-layout\n" +
+            "caption-side\n" +
+            "empty-cells\n" +
+            "list-style\n" +
+            "list-style-position\n" +
+            "list-style-type\n" +
+            "list-style-image\n" +
+            "quotes\n" +
+            "content\n" +
+            "counter-increment\n" +
+            "counter-reset\n" +
+            "-ms-writing-mode\n" +
+            "vertical-align\n" +
+            "text-align\n" +
+            "-webkit-text-align-last\n" +
+            "-moz-text-align-last\n" +
+            "-ms-text-align-last\n" +
+            "text-align-last\n" +
+            "text-decoration\n" +
+            "text-emphasis\n" +
+            "text-emphasis-position\n" +
+            "text-emphasis-style\n" +
+            "text-emphasis-color\n" +
+            "text-indent\n" +
+            "-ms-text-justify\n" +
+            "text-justify\n" +
+            "text-outline\n" +
+            "text-transform\n" +
+            "text-wrap\n" +
+            "-ms-text-overflow\n" +
+            "text-overflow\n" +
+            "text-overflow-ellipsis\n" +
+            "text-overflow-mode\n" +
+            "text-shadow\n" +
+            "white-space\n" +
+            "word-spacing\n" +
+            "-ms-word-wrap\n" +
+            "word-wrap\n" +
+            "-ms-word-break\n" +
+            "word-break\n" +
+            "-moz-tab-size\n" +
+            "-o-tab-size\n" +
+            "tab-size\n" +
+            "-webkit-hyphens\n" +
+            "-moz-hyphens\n" +
+            "hyphens\n" +
+            "letter-spacing\n" +
+            "font\n" +
+            "font-weight\n" +
+            "font-style\n" +
+            "font-variant\n" +
+            "font-size-adjust\n" +
+            "font-stretch\n" +
+            "font-size\n" +
+            "font-family\n" +
+            "src\n" +
+            "line-height\n" +
+            "opacity\n" +
+            "-ms-filter:'progid:DXImageTransform.Microsoft.Alpha\n" +
+            "filter:progid:DXImageTransform.Microsoft.Alpha(Opacity\n" +
+            "-ms-interpolation-mode\n" +
+            "-webkit-filter\n" +
+            "-ms-filter\n" +
+            "filter\n" +
+            "resize\n" +
+            "cursor\n" +
+            "nav-index\n" +
+            "nav-up\n" +
+            "nav-right\n" +
+            "nav-down\n" +
+            "nav-left\n" +
+            "-webkit-transition\n" +
+            "-moz-transition\n" +
+            "-ms-transition\n" +
+            "-o-transition\n" +
+            "transition\n" +
+            "-webkit-transition-delay\n" +
+            "-moz-transition-delay\n" +
+            "-ms-transition-delay\n" +
+            "-o-transition-delay\n" +
+            "transition-delay\n" +
+            "-webkit-transition-timing-function\n" +
+            "-moz-transition-timing-function\n" +
+            "-ms-transition-timing-function\n" +
+            "-o-transition-timing-function\n" +
+            "transition-timing-function\n" +
+            "-webkit-transition-duration\n" +
+            "-moz-transition-duration\n" +
+            "-ms-transition-duration\n" +
+            "-o-transition-duration\n" +
+            "transition-duration\n" +
+            "-webkit-transition-property\n" +
+            "-moz-transition-property\n" +
+            "-ms-transition-property\n" +
+            "-o-transition-property\n" +
+            "transition-property\n" +
+            "-webkit-transform\n" +
+            "-moz-transform\n" +
+            "-ms-transform\n" +
+            "-o-transform\n" +
+            "transform\n" +
+            "-webkit-transform-origin\n" +
+            "-moz-transform-origin\n" +
+            "-ms-transform-origin\n" +
+            "-o-transform-origin\n" +
+            "transform-origin\n" +
+            "-webkit-animation\n" +
+            "-moz-animation\n" +
+            "-ms-animation\n" +
+            "-o-animation\n" +
+            "animation\n" +
+            "-webkit-animation-name\n" +
+            "-moz-animation-name\n" +
+            "-ms-animation-name\n" +
+            "-o-animation-name\n" +
+            "animation-name\n" +
+            "-webkit-animation-duration\n" +
+            "-moz-animation-duration\n" +
+            "-ms-animation-duration\n" +
+            "-o-animation-duration\n" +
+            "animation-duration\n" +
+            "-webkit-animation-play-state\n" +
+            "-moz-animation-play-state\n" +
+            "-ms-animation-play-state\n" +
+            "-o-animation-play-state\n" +
+            "animation-play-state\n" +
+            "-webkit-animation-timing-function\n" +
+            "-moz-animation-timing-function\n" +
+            "-ms-animation-timing-function\n" +
+            "-o-animation-timing-function\n" +
+            "animation-timing-function\n" +
+            "-webkit-animation-delay\n" +
+            "-moz-animation-delay\n" +
+            "-ms-animation-delay\n" +
+            "-o-animation-delay\n" +
+            "animation-delay\n" +
+            "-webkit-animation-iteration-count\n" +
+            "-moz-animation-iteration-count\n" +
+            "-ms-animation-iteration-count\n" +
+            "-o-animation-iteration-count\n" +
+            "animation-iteration-count\n" +
+            "-webkit-animation-direction\n" +
+            "-moz-animation-direction\n" +
+            "-ms-animation-direction\n" +
+            "-o-animation-direction\n" +
+            "animation-direction\n" +
+            "pointer-events\n" +
+            "unicode-bidi\n" +
+            "direction\n" +
+            "-webkit-columns\n" +
+            "-moz-columns\n" +
+            "columns\n" +
+            "-webkit-column-span\n" +
+            "-moz-column-span\n" +
+            "column-span\n" +
+            "-webkit-column-width\n" +
+            "-moz-column-width\n" +
+            "column-width\n" +
+            "-webkit-column-count\n" +
+            "-moz-column-count\n" +
+            "column-count\n" +
+            "-webkit-column-fill\n" +
+            "-moz-column-fill\n" +
+            "column-fill\n" +
+            "-webkit-column-gap\n" +
+            "-moz-column-gap\n" +
+            "column-gap\n" +
+            "-webkit-column-rule\n" +
+            "-moz-column-rule\n" +
+            "column-rule\n" +
+            "-webkit-column-rule-width\n" +
+            "-moz-column-rule-width\n" +
+            "column-rule-width\n" +
+            "-webkit-column-rule-style\n" +
+            "-moz-column-rule-style\n" +
+            "column-rule-style\n" +
+            "-webkit-column-rule-color\n" +
+            "-moz-column-rule-color\n" +
+            "column-rule-color\n" +
+            "break-before\n" +
+            "break-inside\n" +
+            "break-after\n" +
+            "page-break-before\n" +
+            "page-break-inside\n" +
+            "page-break-after\n" +
+            "orphans\n" +
+            "widows\n" +
+            "-ms-zoom\n" +
+            "zoom\n" +
+            "max-zoom\n" +
+            "min-zoom\n" +
+            "user-zoom\n" +
+            "orientation";
 
-    public static final Comparator<? super CssDeclaration> DEFAULT_COMPARATOR = new Comparator<CssDeclaration>() {
-        @Override
-        public int compare(CssDeclaration o1, CssDeclaration o2) {
-            int firstIndex = DEFAULT_ORDER.indexOf(o1.getPropertyName());
-            int secondIndex = DEFAULT_ORDER.indexOf(o2.getPropertyName());
-            return firstIndex == secondIndex ? 0 : firstIndex > secondIndex ? 1 : -1;
-        }
-    };
+    public static final String PROPERTY_NAME = "cssorder";
+
+    public static Comparator<? super CssDeclaration> makeComparator(Project project) {
+        return makeComparator(getCssOrder(project));
+    }
+
+    public static Comparator<? super CssDeclaration> makeComparator(final String cssOrder) {
+        return new Comparator<CssDeclaration>() {
+            @Override
+            public int compare(CssDeclaration o1, CssDeclaration o2) {
+                int firstIndex = cssOrder.indexOf(o1.getPropertyName());
+                int secondIndex = cssOrder.indexOf(o2.getPropertyName());
+                return firstIndex == secondIndex ? 0 : firstIndex > secondIndex ? 1 : -1;
+            }
+        };
+    }
+
+    static String getCssOrder(Project project) {
+        return PropertiesComponent.getInstance(project).getValue(PROPERTY_NAME, DEFAULT_ORDER);
+    }
+
+    public static void setCssOrder(Project project, String cssOrder) {
+        PropertiesComponent.getInstance(project).setValue(PROPERTY_NAME, cssOrder);
+    }
+
 }

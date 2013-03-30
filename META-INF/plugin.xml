@@ -35,4 +35,8 @@
       <add-to-group group-id="ToolsMenu" anchor="last" />
     </action>
   </actions>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <projectConfigurable instance="com.rudeshko.csscomb.CSSCombConfigurable" />
+  </extensions>
 </idea-plugin>
