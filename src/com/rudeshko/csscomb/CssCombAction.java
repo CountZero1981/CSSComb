@@ -20,6 +20,6 @@ public class CssCombAction extends AnAction {
 
     private boolean isCss(AnActionEvent e) {
         PsiFile psiFile = e.getData(LangDataKeys.PSI_FILE);
-        return psiFile != null && "CSS".equals(psiFile.getLanguage().getDisplayName());
+        return psiFile != null && ("CSS".equals(psiFile.getLanguage().getDisplayName() || "SCSS".equals(psiFile.getLanguage().getDisplayName()));
     }
 }
